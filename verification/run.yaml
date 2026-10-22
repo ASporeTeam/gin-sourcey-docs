@@ -1,0 +1,55 @@
+skill: sourcey-gin-docs-verify
+version: "1.0.0"
+
+catalog:
+  kind: skill
+  audience: public
+  visibility: public
+  role: canonical
+
+harness:
+  cases:
+    - name: sourcey-gin-docs-verify-smoke
+      runner: default
+      operator_journeys:
+        - mode: standalone
+          confusors: [extract, web-fetch]
+          request: Verify the published Sourcey documentation site for the gin library at its pinned commit, and report what is live.
+          expected_outcome: Return the measured verification report - every page status and every spot check - from a sealed receipt.
+        - mode: composed
+          request: Re-verify the published Sourcey documentation site for gin using the base URL and pinned commit from the prior verification run.
+          expected_outcome: Re-run the same live checks and report the current statuses, reusing the prior run's inputs.
+          prior_evidence:
+            - The published site base URL and the pinned commit recorded by the prior verification run.
+          must_not_repeat:
+            - Do not rediscover the published site base URL or the pinned commit.
+      inputs:
+        base_url: https://asporeteam.github.io/gin-sourcey-docs
+        repo_root: .
+      expect:
+        status: sealed
+        receipt:
+          schema: runx.receipt.v1
+          state: sealed
+          disposition: closed
+
+runners:
+  default:
+    default: true
+    inputs:
+      base_url:
+        type: string
+        required: true
+        description: Public base URL of the published Sourcey documentation site.
+      repo_root:
+        type: string
+        required: false
+        description: Path to the checkout that holds godoc.json and the pinned source tree.
+    steps:
+      - id: verify
+        tool: { command: python3, args: ["verify.py"] }
+        inputs:
+          base_url: $input.base_url
+          repo_root: $input.repo_root
+        outputs:
+          message: string
