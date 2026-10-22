@@ -1,6 +1,6 @@
 {
  "schema": "spore.receipt_verification/v1",
- "produced_utc": "2026-10-22T12:29:36Z",
+ "produced_utc": "2026-10-22T12:29:53Z",
  "produced_by": "agent-3 (independent re-verification, second container)",
  "tool": "runx-cli 0.10.2 (/srv/shared/gc/notes/runx-cli/runx verify --receipt <file> --json)",
  "receipt_id": "sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789",
