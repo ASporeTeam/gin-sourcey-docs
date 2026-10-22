@@ -1,0 +1,9 @@
+{
+ "schema": "spore.receipt_public_key.v1",
+ "algorithm": "Ed25519",
+ "public_key_base64": "nx6nALtIMMAwSXsoQInpC7R1HLclcs96AOrnP4zvPh4=",
+ "public_key_sha256": "sha256:eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0",
+ "receipt_id": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
+ "receipt_digest": "sha256:997a4e63550595e74a82b57e6bfe4c344eea8201190ddfa6262e7c591c1f355a",
+ "note": "The receipt at https://asporeteam.github.io/gin-sourcey-docs/receipt.json is sealed with this Ed25519 key. The private seed is NOT published. Verify with: runx verify --receipt receipt.json --json, or with verify-receipt.py receipt.json receipt-public-key.json."
+}

@@ -6,24 +6,68 @@ pinned to commit `0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646` (2026-10-10, MIT).
 
 - **public_url:** https://asporeteam.github.io/gin-sourcey-docs/
 - **evidence_json:** https://asporeteam.github.io/gin-sourcey-docs/evidence.json
+- **report:** https://asporeteam.github.io/gin-sourcey-docs/report.md
 - **receipt_ref:** `runx:receipt:sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823`
-- **docs repository:** https://github.com/ASporeTeam/gin-sourcey-docs (commit `d4b845f3f3acb12849bfdc19fa745bb5eb6b6a99`)
+- **receipt (public):** https://asporeteam.github.io/gin-sourcey-docs/receipt.json
+- **receipt public key:** https://asporeteam.github.io/gin-sourcey-docs/receipt-public-key.json
+- **second independent run:** https://asporeteam.github.io/gin-sourcey-docs/receipt-agent3.json
+  (`runx:receipt:sha256:5f0b62964930ee337af8de0ad1b13eb80dd168de15c6037da07ab73b0699ee4b`)
+- **governed run output:** https://asporeteam.github.io/gin-sourcey-docs/verification-output-agent3.json
+- **docs repository:** https://github.com/ASporeTeam/gin-sourcey-docs
+  (site build commit `94409a604f670bf6420fbd46f515c22141a92beb`)
 
 ## How it was built (no hand-written API pages)
 
 - `sourcey godoc -m . -p ./... -o godoc.json` ran Sourcey v3.6.12's godoc adapter
-  against the **pinned clone** of `gin` with the Go 1.26.0 toolchain; the snapshot
-  is committed to the docs repository with sha256
+  against the **pinned clone** of `gin`; the snapshot is committed to the docs
+  repository with sha256
   `91bfb81dff5fafadf8ea973ee99da82eb5bf0c82d0e0e854ea7e0a88bb070e15`.
 - `sourcey build` rendered the static site from `sourcey.config.ts` (guides tab +
   godoc tab, `mode: "snapshot"` so the build is reproducible without Go).
 - The reference renders **7 Go packages** and **431 public API entries** (59 types,
-  62 functions, 237 methods, 47 constants, 26 variables) from 53 contributing source
-  files — 21x the 20-entry acceptance bar. Every entry carries its doc comment,
-  its source-faithful declaration and its `file:line` position at the pinned commit.
-- A **sealed `runx.receipt.v1` receipt** covers the governed validation run of the
-  published site: 13/13 pages HTTP 200, 7/7 symbol spot-checks found in the live
-  rendered pages, digest valid, content address valid, Ed25519 signature valid.
+  62 functions, 237 methods, 47 constants, 26 variables) from **53 source files**
+  in the committed snapshot — 21x the 20-entry acceptance bar. Every entry carries
+  its doc comment, its source-faithful declaration and its `file:line` position at
+  the pinned commit.
+- The Go toolchain that parsed the source is the one gin's own `go.mod` declares
+  (`go 1.26.0`, selected automatically by `GOTOOLCHAIN=auto`); the Sourcey build ran
+  on Node v22.14.0 with the runx CLI at `runx-cli 0.10.2`.
+
+## The receipt is real, public and recomputable
+
+- The governed validation run of the **published** site is sealed in a
+  `runx.receipt.v1` receipt (Ed25519, `seal.disposition = closed`) whose content
+  address is
+  `sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823`.
+  That address is exactly what `receipt_ref` binds above.
+- The receipt JSON is published next to the site, and the Ed25519 **public** key
+  that sealed it is published with it (the private seed is not published). The
+  receipt's `issuer.public_key_sha256` is
+  `sha256:eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0`,
+  which is the sha256 of the published public key — so a reviewer can check that
+  the key really is the one the receipt names.
+- Recompute it yourself, from the public bytes alone:
+
+```bash
+curl -sS -O https://asporeteam.github.io/gin-sourcey-docs/receipt.json
+runx verify --receipt receipt.json --json      # -> "valid": true, digest valid, signature valid
+python3 verify-receipt.py                      # key-binding + seal checks, no dependencies
+```
+
+- The verifier that produced the receipt is committed with the site under
+  `verification/` and can be re-run at any time:
+
+```bash
+runx skill ./verification -i base_url=https://asporeteam.github.io/gin-sourcey-docs \
+                     -i repo_root=.
+```
+
+  The last run measured **13/13 pages HTTP 200** and **7/7 symbol spot-checks
+  found** in the live rendered pages; the raw run output is published at
+  https://asporeteam.github.io/gin-sourcey-docs/verification-output-agent3.json,
+  and that run's own sealed receipt is published at
+  https://asporeteam.github.io/gin-sourcey-docs/receipt-agent3.json (it also binds
+  the digests of `godoc.json` and of the pinned-commit marker into the run output).
 
 ## Maintainer-facing gaps found in the pinned commit
 
@@ -82,8 +126,12 @@ curl -s https://asporeteam.github.io/gin-sourcey-docs/evidence.json | python3 -m
 cd gin-src && git rev-parse HEAD    # 0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646
 ```
 
-The verifier that produced the receipt is committed with the site at
-`verification/` and can be re-run with `runx skill ./verification -i base_url=https://asporeteam.github.io/gin-sourcey-docs`.
+## Who made this
+
+Site build and guide pages: the SPORE crew (`@ASporeTeam`), AI-assisted and
+disclosed. Evidence, receipt and delivery: agent-3. The documented target is a
+third-party project; nothing in this delivery modifies `gin` or claims to speak for
+its maintainers.
 
 *Generated with Sourcey (AGPL-3.0). The API reference is machine-extracted from the
 MIT-licensed `gin` source tree; this report and the guide pages were written by the
