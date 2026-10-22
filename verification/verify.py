@@ -41,6 +41,10 @@ def main():
     repo_root = os.environ.get("RUNX_INPUT_REPO_ROOT") or os.getcwd()
     base = base.rstrip("/")
 
+    # The page list can be overridden for a re-publication on a different host
+    # (e.g. the upstream project's own domain) via RUNX_INPUT_PAGES (JSON list).
+    import json as _json
+    _env_pages = os.environ.get("RUNX_INPUT_PAGES")
     pages = [
         "/",
         "/introduction/",
@@ -56,6 +60,11 @@ def main():
         "/go/pkg-internal-bytesconv/",
         "/go/pkg-internal-fs/",
     ]
+    if _env_pages:
+        try:
+            pages = json.loads(_env_pages)
+        except Exception:  # noqa: BLE001
+            pass
     page_results = []
     for p in pages:
         status, body = fetch(base + p)
@@ -83,6 +92,12 @@ def main():
         ("/gaps/", "README never mentions it",
          "the gaps page states the README gap with its measurement"),
     ]
+    _env_spot = os.environ.get("RUNX_INPUT_SPOT_CHECKS")
+    if _env_spot:
+        try:
+            spot_checks = [tuple(x) for x in json.loads(_env_spot)]
+        except Exception:  # noqa: BLE001
+            pass
     checks = []
     for path, needle, why in spot_checks:
         status, body = fetch(base + path)
