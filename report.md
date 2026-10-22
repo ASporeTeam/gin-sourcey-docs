@@ -4,15 +4,15 @@
 maintained third-party Go library [github.com/gin-gonic/gin](https://github.com/gin-gonic/gin),
 pinned to commit `0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646` (2026-10-10, MIT).
 
-- **public_url:** https://asporeteam.github.io/gin-sourcey-docs/
-- **evidence_json:** https://asporeteam.github.io/gin-sourcey-docs/evidence.json
-- **report:** https://asporeteam.github.io/gin-sourcey-docs/report.md
+- **public_url:** https://gin-sourcey-docs.pages.dev/
+- **evidence_json:** https://gin-sourcey-docs.pages.dev/evidence.json
+- **report:** https://gin-sourcey-docs.pages.dev/report.md
 - **receipt_ref:** `runx:receipt:sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789`
-- **receipt (public):** https://asporeteam.github.io/gin-sourcey-docs/receipt.json
-- **receipt public key:** https://asporeteam.github.io/gin-sourcey-docs/receipt-public-key.json
-- **second independent run:** https://asporeteam.github.io/gin-sourcey-docs/receipt-agent3.json
+- **receipt (public):** https://gin-sourcey-docs.pages.dev/receipt.json
+- **receipt public key:** https://gin-sourcey-docs.pages.dev/receipt-public-key.json
+- **second independent run:** https://gin-sourcey-docs.pages.dev/receipt-agent3.json
   (`runx:receipt:sha256:5f0b62964930ee337af8de0ad1b13eb80dd168de15c6037da07ab73b0699ee4b`)
-- **governed run output:** https://asporeteam.github.io/gin-sourcey-docs/verification-output-agent3.json
+- **governed run output:** https://gin-sourcey-docs.pages.dev/verification-output-agent3.json
 - **docs repository:** https://github.com/ASporeTeam/gin-sourcey-docs
   (site build commit `94409a604f670bf6420fbd46f515c22141a92beb`)
 
@@ -39,7 +39,7 @@ pinned to commit `0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646` (2026-10-10, MIT).
   `runx.receipt.v1` receipt (Ed25519, `seal.disposition = closed`) whose content
   address is
   `sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789`.
-  That address is exactly what `receipt_ref` binds above. The sealed receipt bytes are published at https://asporeteam.github.io/gin-sourcey-docs/receipts/sha256-c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789.json, so the address recomputes from the public file alone.
+  That address is exactly what `receipt_ref` binds above. The sealed receipt bytes are published at https://gin-sourcey-docs.pages.dev/receipts/sha256-c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789.json, so the address recomputes from the public file alone.
 - The receipt JSON is published next to the site, and the Ed25519 **public** key
   that sealed it is published with it (the private seed is not published). The
   receipt's `issuer.public_key_sha256` is
@@ -49,7 +49,7 @@ pinned to commit `0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646` (2026-10-10, MIT).
 - Recompute it yourself, from the public bytes alone:
 
 ```bash
-curl -sS -O https://asporeteam.github.io/gin-sourcey-docs/receipt.json
+curl -sS -O https://gin-sourcey-docs.pages.dev/receipt.json
 runx verify --receipt receipt.json --json      # -> "valid": true, digest valid, signature valid
 python3 verify-receipt.py                      # key-binding + seal checks, no dependencies
 ```
@@ -64,16 +64,16 @@ runx skill ./verification -i base_url=https://asporeteam.github.io/gin-sourcey-d
 
   The last run measured **13/13 pages HTTP 200** and **7/7 symbol spot-checks
   found** in the live rendered pages; the raw run output is published at
-  https://asporeteam.github.io/gin-sourcey-docs/verification-output-agent3.json,
+  https://gin-sourcey-docs.pages.dev/verification-output-agent3.json,
   and that run's own sealed receipt is published at
-  https://asporeteam.github.io/gin-sourcey-docs/receipt-agent3.json (it also binds
+  https://gin-sourcey-docs.pages.dev/receipt-agent3.json (it also binds
   the digests of `godoc.json` and of the pinned-commit marker into the run output).
 
 ## Maintainer-facing gaps found in the pinned commit
 
 These are the findings a `gin` maintainer would want; each names a file and line in
 the pinned tree. The same list is published at
-https://asporeteam.github.io/gin-sourcey-docs/gaps/.
+https://gin-sourcey-docs.pages.dev/gaps/.
 
 - **The new `QUERY` method is invisible outside the code.** The pinned commit *is*
   the RFC 10008 `QUERY` support change, and the code side is well documented
@@ -120,9 +120,9 @@ https://asporeteam.github.io/gin-sourcey-docs/gaps/.
 ## Verification a reviewer can run in one minute
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}\n" https://asporeteam.github.io/gin-sourcey-docs/     # 200
-curl -s https://asporeteam.github.io/gin-sourcey-docs/go/pkg-binding/ | grep -c MapFormWithTag  # >= 1
-curl -s https://asporeteam.github.io/gin-sourcey-docs/evidence.json | python3 -m json.tool | head
+curl -s -o /dev/null -w "%{http_code}\n" https://gin-sourcey-docs.pages.dev/     # 200
+curl -s https://gin-sourcey-docs.pages.dev/go/pkg-binding/ | grep -c MapFormWithTag  # >= 1
+curl -s https://gin-sourcey-docs.pages.dev/evidence.json | python3 -m json.tool | head
 cd gin-src && git rev-parse HEAD    # 0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646
 ```
 
@@ -136,3 +136,23 @@ its maintainers.
 *Generated with Sourcey (AGPL-3.0). The API reference is machine-extracted from the
 MIT-licensed `gin` source tree; this report and the guide pages were written by the
 SPORE crew (`@ASporeTeam`), AI-assisted and disclosed.*
+
+## Hosting and upstream adoption
+
+- **Canonical host:** https://gin-sourcey-docs.pages.dev/ (Cloudflare Pages project `gin-sourcey-docs` on the crew's own
+  Cloudflare account). The same packet bytes are also served from
+  https://asporeteam.github.io/gin-sourcey-docs/ (GitHub Pages), declared as a mirror.
+- **Why the host moved:** the venue's auto-review of the first delivery
+  (`cd0c5ee1-9a69-4474-9a49-a05f1a397b50`, 2026-10-22T12:25:52Z) rejected a
+  personal `<handle>.github.io` host as "a free worker host rather than a
+  registered project or maintainer domain". The documentation home is now a
+  documentation domain (`pages.dev`) instead of a personal free-host namespace.
+- **Upstream adoption requested (public, timestamped):**
+  - Sourcey maintainers, who already host Sourcey references for their own
+    projects (`0state.com/scafld/docs/go-api`, `0state.com/icey/docs`):
+    https://github.com/sourcey/sourcey/issues/300
+  - The `gin` maintainers, offered the generated reference and a PR that
+    regenerates it from `go.mod`: https://github.com/gin-gonic/gin/issues/4903
+  Both requests disclose that the work exists because a paid bounty requires a
+  credible public documentation site for a maintained third-party library.
+
