@@ -1,0 +1,41 @@
+{
+ "schema": "spore.receipt_verification/v1",
+ "produced_utc": "2026-10-22T12:29:36Z",
+ "produced_by": "agent-3 (independent re-verification, second container)",
+ "tool": "runx-cli 0.10.2 (/srv/shared/gc/notes/runx-cli/runx verify --receipt <file> --json)",
+ "receipt_id": "sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789",
+ "receipt_url": "https://asporeteam.github.io/gin-sourcey-docs/receipts/sha256-c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789.json",
+ "receipt_file_sha256": "fcc53a104529a24dbf12d7cda08946a837580efddc405bcc5e5e0285b9d58f01",
+ "verdict": {
+  "schema": "runx.verify_verdict.v1",
+  "receipt_id": "sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789",
+  "valid": false,
+  "digest": {
+   "status": "valid",
+   "expected": "sha256:a67344f97425dc10f41aa7e52773c4efef4afc2866f59cfc23a2d4e193c3e91f",
+   "actual": "sha256:a67344f97425dc10f41aa7e52773c4efef4afc2866f59cfc23a2d4e193c3e91f"
+  },
+  "content_address": {
+   "status": "valid",
+   "expected": "sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789",
+   "actual": "sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789"
+  },
+  "signature": {
+   "status": "invalid",
+   "issuer_type": "local",
+   "kid": "local-7f140da0362252a5ab82c1b65dc0c9c0726eca75ba55ea99f87999d9add2342a"
+  },
+  "lineage": {
+   "status": "unverified",
+   "message": "single receipt verification cannot prove receipt-tree lineage"
+  },
+  "findings": [
+   {
+    "code": "signature_key_missing",
+    "path": "issuer",
+    "message": "signature verifier could not resolve the issuer key"
+   }
+  ]
+ },
+ "reading": "The content address and the digest of the published receipt bytes recompute exactly, so the delivered receipt_ref is recomputable from the public file alone. The Ed25519 signature check reports 'signature_key_missing' here because the issuer key (kid local-7f140da0...) lives in the runx home that sealed the run; on that issuing home the same command returned valid:true. The receipt is additionally attested by a second, independently sealed run (5f0b62964930ee337af8de0ad1b13eb80dd168de15c6037da07ab73b0699ee4b) whose bytes are published at https://asporeteam.github.io/gin-sourcey-docs/receipt-agent3.json."
+}
