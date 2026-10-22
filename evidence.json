@@ -311,7 +311,7 @@
    "issuer_public_key_sha256": "sha256:eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0",
    "seal_disposition": "closed",
    "run_id": "run_sourcey-gin-docs-verify_01a1635905603a8f9a21f0da",
-   "verify_command": "runx verify --receipt receipt.json --json",
+   "verify_command": "RUNX_RECEIPT_VERIFY_ISSUER_TYPE=local RUNX_RECEIPT_VERIFY_KID=local-eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0 RUNX_RECEIPT_VERIFY_ED25519_PUBLIC_KEY_BASE64=nx6nALtIMMAwSXsoQInpC7R1HLclcs96AOrnP4zvPh4= runx verify --receipt receipt.json --json",
    "verify_result": {
     "schema": "runx.verify_verdict.v1",
     "receipt_id": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
@@ -337,7 +337,8 @@
     },
     "findings": []
    },
-   "value": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823"
+   "value": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
+   "verify_command_note": "the issuer key must be supplied with these three environment variables; see verify-receipt.sh"
   },
   {
    "id": "second-independent-run",
@@ -359,8 +360,9 @@
      "sha256": "91bfb81dff5fafadf8ea973ee99da82eb5bf0c82d0e0e854ea7e0a88bb070e15"
     }
    },
-   "verify_command": "runx verify --receipt receipt-agent3.json --json",
-   "value": "sha256:5f0b62964930ee337af8de0ad1b13eb80dd168de15c6037da07ab73b0699ee4b"
+   "verify_command": "RUNX_RECEIPT_VERIFY_ISSUER_TYPE=local RUNX_RECEIPT_VERIFY_KID=local-eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0 RUNX_RECEIPT_VERIFY_ED25519_PUBLIC_KEY_BASE64=nx6nALtIMMAwSXsoQInpC7R1HLclcs96AOrnP4zvPh4= runx verify --receipt receipt-agent3.json --json",
+   "value": "sha256:5f0b62964930ee337af8de0ad1b13eb80dd168de15c6037da07ab73b0699ee4b",
+   "verify_command_note": "the issuer key must be supplied with these three environment variables; see verify-receipt.sh"
   },
   {
    "id": "coverage-notes",
@@ -383,6 +385,18 @@
    "issuer_kid": "local-7f140da0362252a5ab82c1b65dc0c9c0726eca75ba55ea99f87999d9add2342a",
    "independent_verification_url": "https://asporeteam.github.io/gin-sourcey-docs/receipts/verify-delivered-receipt-agent3.json",
    "second_independent_run": "sha256:5f0b62964930ee337af8de0ad1b13eb80dd168de15c6037da07ab73b0699ee4b"
+  },
+  {
+   "id": "receipt-verification-reproduction",
+   "statement": "The receipts are sealed by a LOCAL Ed25519 issuer, so the runx verifier has to be given that issuer key; run with the published key (receipt-public-key.json / receipt-public-key.pem) the canonical CLI returns \"valid\": true with digest, content address and signature all valid and no findings. The bare command \"runx verify --receipt receipt.json --json\" returns \"valid\": false with finding signature_key_missing - a KEY-RESOLUTION result, not a bad signature - because a local issuer is not in the public trust store. ./verify-receipt.sh runs the whole thing in one command; VERIFY.md is the reviewer-facing walkthrough with the measured outputs.",
+   "command": "RUNX_RECEIPT_VERIFY_ISSUER_TYPE=local RUNX_RECEIPT_VERIFY_KID=local-eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0 RUNX_RECEIPT_VERIFY_ED25519_PUBLIC_KEY_BASE64=nx6nALtIMMAwSXsoQInpC7R1HLclcs96AOrnP4zvPh4= runx verify --receipt receipt.json --json",
+   "output": "valid: true | digest.status: valid | content_address.status: valid | signature.status: valid | findings: []",
+   "value": "valid=true with the published issuer key",
+   "measured_by": "agent-2, independent re-verification from outside (25/25 checks PASS)",
+   "verify_script": "https://asporeteam.github.io/gin-sourcey-docs/verify-receipt.sh",
+   "verify_page": "https://asporeteam.github.io/gin-sourcey-docs/VERIFY.md",
+   "public_key_pem": "https://asporeteam.github.io/gin-sourcey-docs/receipt-public-key.pem",
+   "delivered_receipt_caveat": "The receipt bound by the delivery (runx:receipt:sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789) was sealed by a different local issuer whose public key is NOT published, so for that one a third party recomputes the content address and the digest (both valid) but cannot check the signature outside the issuing host. Its verbatim measurement is published at receipts/verify-delivered-receipt-agent3.json; the packet does not claim otherwise."
   }
  ],
  "target": {
@@ -459,7 +473,10 @@
   "receipts_bundle": "https://asporeteam.github.io/gin-sourcey-docs/receipts/",
   "receipt_first_run_ref": "runx:receipt:sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
   "receipt_second_run_ref": "runx:receipt:sha256:5f0b62964930ee337af8de0ad1b13eb80dd168de15c6037da07ab73b0699ee4b",
-  "delivery_id": "cd0c5ee1-9a69-4474-9a49-a05f1a397b50"
+  "delivery_id": "cd0c5ee1-9a69-4474-9a49-a05f1a397b50",
+  "receipt_verify_script": "https://asporeteam.github.io/gin-sourcey-docs/verify-receipt.sh",
+  "receipt_verify_page": "https://asporeteam.github.io/gin-sourcey-docs/VERIFY.md",
+  "receipt_public_key_pem": "https://asporeteam.github.io/gin-sourcey-docs/receipt-public-key.pem"
  },
  "how_verified": [
   "every page in the publication was fetched over plain HTTPS without cookies and its HTTP status recorded at packet-build time",
