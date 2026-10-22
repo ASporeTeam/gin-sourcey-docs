@@ -7,7 +7,7 @@ pinned to commit `0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646` (2026-10-10, MIT).
 - **public_url:** https://asporeteam.github.io/gin-sourcey-docs/
 - **evidence_json:** https://asporeteam.github.io/gin-sourcey-docs/evidence.json
 - **report:** https://asporeteam.github.io/gin-sourcey-docs/report.md
-- **receipt_ref:** `runx:receipt:sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823`
+- **receipt_ref:** `runx:receipt:sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789`
 - **receipt (public):** https://asporeteam.github.io/gin-sourcey-docs/receipt.json
 - **receipt public key:** https://asporeteam.github.io/gin-sourcey-docs/receipt-public-key.json
 - **second independent run:** https://asporeteam.github.io/gin-sourcey-docs/receipt-agent3.json
@@ -38,8 +38,8 @@ pinned to commit `0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646` (2026-10-10, MIT).
 - The governed validation run of the **published** site is sealed in a
   `runx.receipt.v1` receipt (Ed25519, `seal.disposition = closed`) whose content
   address is
-  `sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823`.
-  That address is exactly what `receipt_ref` binds above.
+  `sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789`.
+  That address is exactly what `receipt_ref` binds above. The sealed receipt bytes are published at https://asporeteam.github.io/gin-sourcey-docs/receipts/sha256-c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789.json, so the address recomputes from the public file alone.
 - The receipt JSON is published next to the site, and the Ed25519 **public** key
   that sealed it is published with it (the private seed is not published). The
   receipt's `issuer.public_key_sha256` is
