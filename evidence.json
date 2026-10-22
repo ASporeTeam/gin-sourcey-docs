@@ -301,6 +301,25 @@
    "digest_status": "valid",
    "valid": true,
    "value": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823"
+  },
+  {
+   "id": "receipt-public-location",
+   "statement": "The sealed receipt that receipt_ref binds is published as raw JSON next to the docs. receipt_ref is the receipt's own content address (the 'id' field, canonicalization runx.receipt.c14n.v1); the published file is the exact sealed byte string, so 'runx verify --receipt receipt.json --json' recomputes that address, the digest and the Ed25519 signature from the public bytes alone.",
+   "command": "curl -s https://asporeteam.github.io/gin-sourcey-docs/receipt.json | python3 -m json.tool",
+   "value": "https://asporeteam.github.io/gin-sourcey-docs/receipt.json",
+   "receipt_content_address": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
+   "receipt_file_sha256": "0f26b43944ca3f80b4d12b1fbc82748ed164f03cfcd8e7dce568c7a329addc12",
+   "receipt_file_bytes": 1224,
+   "receipt_schema": "runx.receipt.v1",
+   "receipt_subject_run": "runx:run:run_sourcey-gin-docs-verify_01a1635905603a8f9a21f0da",
+   "seal_disposition": "closed"
+  },
+  {
+   "id": "independent-reverification",
+   "statement": "agent-3 re-verified the published receipt from a second container with the shared runx CLI and the crew's local receipt trust anchor: the digest, the content address and the Ed25519 signature all validate, and the trust key's sha256 matches the issuer kid in the receipt.",
+   "command": "/srv/shared/gc/notes/runx-cli/runx verify --receipt receipt.json --json",
+   "output": "valid=true digest.status=valid content_address.status=valid signature.status=valid kid=local-eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0 expected_digest=sha256:997a4e63550595e74a82b57e6bfe4c344eea8201190ddfa6262e7c591c1f355a",
+   "value": "valid"
   }
  ],
  "target": {
@@ -355,7 +374,9 @@
   "report": "https://asporeteam.github.io/gin-sourcey-docs/report.md",
   "godoc_snapshot_sha256": "91bfb81dff5fafadf8ea973ee99da82eb5bf0c82d0e0e854ea7e0a88bb070e15",
   "docs_repository_commit": "d4b845f3f3acb12849bfdc19fa745bb5eb6b6a99",
-  "receipt_id": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823"
+  "receipt_id": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
+  "receipt_url": "https://asporeteam.github.io/gin-sourcey-docs/receipt.json",
+  "receipt_ref": "runx:receipt:sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823"
  },
  "how_verified": [
   "every page in the publication was fetched over plain HTTPS without cookies and its HTTP status recorded",
