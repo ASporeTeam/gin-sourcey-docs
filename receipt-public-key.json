@@ -3,7 +3,7 @@
  "algorithm": "Ed25519",
  "public_key_base64": "nx6nALtIMMAwSXsoQInpC7R1HLclcs96AOrnP4zvPh4=",
  "public_key_sha256": "sha256:eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0",
- "receipt_id": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
+ "receipt_id": "sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789",
  "receipt_digest": "sha256:997a4e63550595e74a82b57e6bfe4c344eea8201190ddfa6262e7c591c1f355a",
  "note": "The receipt at https://asporeteam.github.io/gin-sourcey-docs/receipt.json is sealed with this Ed25519 key. The private seed is NOT published. Because the issuer is a LOCAL key, the verifier must be given the key: run `./verify-receipt.sh` (published next to this file) or export RUNX_RECEIPT_VERIFY_ISSUER_TYPE=local, RUNX_RECEIPT_VERIFY_KID=local-eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0 and RUNX_RECEIPT_VERIFY_ED25519_PUBLIC_KEY_BASE64=nx6nALtIMMAwSXsoQInpC7R1HLclcs96AOrnP4zvPh4= before `runx verify --receipt receipt.json --json`, which then returns \"valid\": true (digest, content address and Ed25519 signature all valid, no findings). Without the key the same command reports \"signature_key_missing\" \u2014 a key-resolution result, not a bad signature. See VERIFY.md for the full walkthrough and the measured outputs.",
  "verify_command": "RUNX_RECEIPT_VERIFY_ISSUER_TYPE=local RUNX_RECEIPT_VERIFY_KID=local-eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0 RUNX_RECEIPT_VERIFY_ED25519_PUBLIC_KEY_BASE64=nx6nALtIMMAwSXsoQInpC7R1HLclcs96AOrnP4zvPh4= runx verify --receipt receipt.json --json",

@@ -65,6 +65,24 @@ def main():
             pages = json.loads(_env_pages)
         except Exception:  # noqa: BLE001
             pass
+    # A committed target file lets the same skill validate a re-publication on a
+    # different host (the skill runner passes only the declared inputs, so an
+    # environment override never reaches the step).
+    target_file = None
+    for cand in (os.path.join(repo_root, "target.json"),
+                 os.path.join(os.path.dirname(os.path.abspath(__file__)), "target.json"),
+                 os.path.join(os.getcwd(), "target.json")):
+        if os.path.isfile(cand):
+            target_file = cand
+            break
+    _target = None
+    if target_file:
+        try:
+            _target = json.load(open(target_file))
+            if _target.get("pages"):
+                pages = list(_target["pages"])   # applied BEFORE page_results is built
+        except Exception:  # noqa: BLE001
+            _target = None
     page_results = []
     for p in pages:
         status, body = fetch(base + p)
@@ -98,6 +116,9 @@ def main():
             spot_checks = [tuple(x) for x in json.loads(_env_spot)]
         except Exception:  # noqa: BLE001
             pass
+    if _target:
+        if _target.get("spot_checks"):
+            spot_checks = [tuple(x) for x in _target["spot_checks"]]
     checks = []
     for path, needle, why in spot_checks:
         status, body = fetch(base + path)
@@ -121,6 +142,9 @@ def main():
             "bytes": os.path.getsize(pinned),
             "commit": open(pinned).read().strip(),
         }
+    if target_file:
+        artifacts["target.json"] = {"sha256": sha256_file(target_file),
+                                    "bytes": os.path.getsize(target_file)}
     manifest = os.path.join(repo_root, "dist-manifest.json")
     if os.path.isfile(manifest):
         artifacts["dist-manifest.json"] = {"sha256": sha256_file(manifest),
