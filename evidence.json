@@ -1,6 +1,6 @@
 {
  "schema": "spore.delivery.evidence/v1",
- "produced_utc": "2026-10-22T12:21:28Z",
+ "produced_utc": "2026-10-22T13:12:53Z",
  "bounty": {
   "number": 33,
   "title": "Publish Sourcey docs for a maintained OSS library",
@@ -172,175 +172,6 @@
    ]
   },
   {
-   "id": "published-pages-live",
-   "statement": "Every page a reviewer would open was fetched over plain HTTPS without cookies at packet-build time; 13 of 13 answered HTTP 200.",
-   "command": "for p in / /introduction/ /coverage/ /gaps/ /reproduce/ /go/ /go/package-root/ /go/pkg-binding/ /go/pkg-render/ /go/pkg-ginS/ /go/pkg-codec-json/ /go/pkg-internal-bytesconv/ /go/pkg-internal-fs/; do curl -sS -o /dev/null -w '%{http_code} $p\\n' https://asporeteam.github.io/gin-sourcey-docs$p; done",
-   "value": "13/13 HTTP 200",
-   "page_results": [
-    {
-     "path": "/",
-     "status": 200,
-     "bytes": 30120
-    },
-    {
-     "path": "/introduction/",
-     "status": 200,
-     "bytes": 30171
-    },
-    {
-     "path": "/coverage/",
-     "status": 200,
-     "bytes": 29364
-    },
-    {
-     "path": "/gaps/",
-     "status": 200,
-     "bytes": 35083
-    },
-    {
-     "path": "/reproduce/",
-     "status": 200,
-     "bytes": 43200
-    },
-    {
-     "path": "/go/",
-     "status": 200,
-     "bytes": 25709
-    },
-    {
-     "path": "/go/package-root/",
-     "status": 200,
-     "bytes": 322551
-    },
-    {
-     "path": "/go/pkg-binding/",
-     "status": 200,
-     "bytes": 77142
-    },
-    {
-     "path": "/go/pkg-render/",
-     "status": 200,
-     "bytes": 113670
-    },
-    {
-     "path": "/go/pkg-ginS/",
-     "status": 200,
-     "bytes": 49397
-    },
-    {
-     "path": "/go/pkg-codec-json/",
-     "status": 200,
-     "bytes": 48166
-    },
-    {
-     "path": "/go/pkg-internal-bytesconv/",
-     "status": 200,
-     "bytes": 28778
-    },
-    {
-     "path": "/go/pkg-internal-fs/",
-     "status": 200,
-     "bytes": 29587
-    }
-   ]
-  },
-  {
-   "id": "symbol-spot-checks",
-   "statement": "Symbol spot-checks against the live rendered pages: 7 of 7 found.",
-   "value": "7/7 found",
-   "spot_checks": [
-    {
-     "path": "/go/package-root/",
-     "needle": "ShouldBindJSON",
-     "why": "(*Context).ShouldBindJSON is in the root package page",
-     "http_status": 200,
-     "found": true
-    },
-    {
-     "path": "/go/package-root/",
-     "needle": "MethodQuery",
-     "why": "the RFC 10008 QUERY method constant is in the root package page",
-     "http_status": 200,
-     "found": true
-    },
-    {
-     "path": "/go/pkg-binding/",
-     "needle": "MapFormWithTag",
-     "why": "the exported tag-aware form binder is in the binding package page",
-     "http_status": 200,
-     "found": true
-    },
-    {
-     "path": "/go/pkg-binding/",
-     "needle": "SliceValidationError",
-     "why": "the exported multi-field validation error type is in the binding page",
-     "http_status": 200,
-     "found": true
-    },
-    {
-     "path": "/go/pkg-render/",
-     "needle": "Render",
-     "why": "the render package documents the Render interface",
-     "http_status": 200,
-     "found": true
-    },
-    {
-     "path": "/",
-     "needle": "0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646",
-     "why": "the introduction page names the pinned commit",
-     "http_status": 200,
-     "found": true
-    },
-    {
-     "path": "/gaps/",
-     "needle": "README never mentions it",
-     "why": "the gaps page states the README gap with its measurement",
-     "http_status": 200,
-     "found": true
-    }
-   ]
-  },
-  {
-   "id": "governed-receipt",
-   "statement": "The governed validation run of the published site is sealed in a runx.receipt.v1 receipt. The receipt is published as raw JSON next to the docs, and `runx verify --receipt receipt.json --json` recomputes its content address, its digest and its Ed25519 signature from the public bytes alone.",
-   "receipt_id": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
-   "receipt_ref": "runx:receipt:sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
-   "receipt_url": "https://asporeteam.github.io/gin-sourcey-docs/receipt.json",
-   "receipt_file_sha256": "0f26b43944ca3f80b4d12b1fbc82748ed164f03cfcd8e7dce568c7a329addc12",
-   "public_key": "https://asporeteam.github.io/gin-sourcey-docs/receipt-public-key.json",
-   "issuer_public_key_sha256": "sha256:eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0",
-   "seal_disposition": "closed",
-   "run_id": "run_sourcey-gin-docs-verify_01a1635905603a8f9a21f0da",
-   "verify_command": "RUNX_RECEIPT_VERIFY_ISSUER_TYPE=local RUNX_RECEIPT_VERIFY_KID=local-eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0 RUNX_RECEIPT_VERIFY_ED25519_PUBLIC_KEY_BASE64=nx6nALtIMMAwSXsoQInpC7R1HLclcs96AOrnP4zvPh4= runx verify --receipt receipt.json --json",
-   "verify_result": {
-    "schema": "runx.verify_verdict.v1",
-    "receipt_id": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
-    "valid": true,
-    "digest": {
-     "status": "valid",
-     "expected": "sha256:997a4e63550595e74a82b57e6bfe4c344eea8201190ddfa6262e7c591c1f355a",
-     "actual": "sha256:997a4e63550595e74a82b57e6bfe4c344eea8201190ddfa6262e7c591c1f355a"
-    },
-    "content_address": {
-     "status": "valid",
-     "expected": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
-     "actual": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823"
-    },
-    "signature": {
-     "status": "valid",
-     "issuer_type": "local",
-     "kid": "local-eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0"
-    },
-    "lineage": {
-     "status": "unverified",
-     "message": "single receipt verification cannot prove receipt-tree lineage"
-    },
-    "findings": []
-   },
-   "value": "sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
-   "verify_command_note": "the issuer key must be supplied with these three environment variables; see verify-receipt.sh"
-  },
-  {
    "id": "second-independent-run",
    "statement": "A SECOND, independent sealed run of the same verifier was executed while assembling this delivery, and it binds the digests of the committed artifacts (godoc.json and the pinned-commit marker) into the run output. It is published next to the primary receipt and verifies clean on its own.",
    "receipt_id": "sha256:5f0b62964930ee337af8de0ad1b13eb80dd168de15c6037da07ab73b0699ee4b",
@@ -370,33 +201,38 @@
    "value": "7 packages / 431 public entries / 0 runnable examples"
   },
   {
-   "id": "delivered-receipt",
-   "statement": "The receipt_ref bound by the delivery (delivery_id cd0c5ee1-9a69-4474-9a49-a05f1a397b50) is the sealed runx.receipt.v1 receipt of the governed validation run of this site. Its sealed bytes are published here, so the content address that receipt_ref names recomputes from the public file alone, and a second, independently sealed run of the same verification skill is published next to it.",
-   "command": "runx verify --receipt receipts/sha256-c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789.json --json",
-   "value": "sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789",
-   "receipt_ref": "runx:receipt:sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789",
-   "receipt_url": "https://asporeteam.github.io/gin-sourcey-docs/receipts/sha256-c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789.json",
-   "receipt_file_sha256": "fcc53a104529a24dbf12d7cda08946a837580efddc405bcc5e5e0285b9d58f01",
+   "id": "governed-receipt",
+   "statement": "The governed validation run of THIS publication is sealed in a runx.receipt.v1 receipt; the sealed bytes are published next to the docs, so the content address that receipt_ref binds recomputes from the public file alone.",
+   "command": "runx verify --receipt receipts/sha256-45a2f7d628b14c6afb80a375c19b2cd1d063bd9a4fbc6e08195cc17bb13658df.json --json",
+   "receipt_id": "sha256:45a2f7d628b14c6afb80a375c19b2cd1d063bd9a4fbc6e08195cc17bb13658df",
    "receipt_schema": "runx.receipt.v1",
-   "receipt_run": "runx:run:run_sourcey-gin-docs-verify_01a16385fc6ef74436572fdd",
    "seal_disposition": "closed",
+   "signature_status": "valid",
    "digest_status": "valid",
    "content_address_status": "valid",
-   "issuer_kid": "local-7f140da0362252a5ab82c1b65dc0c9c0726eca75ba55ea99f87999d9add2342a",
-   "independent_verification_url": "https://asporeteam.github.io/gin-sourcey-docs/receipts/verify-delivered-receipt-agent3.json",
-   "second_independent_run": "sha256:5f0b62964930ee337af8de0ad1b13eb80dd168de15c6037da07ab73b0699ee4b"
+   "valid": true,
+   "value": "sha256:45a2f7d628b14c6afb80a375c19b2cd1d063bd9a4fbc6e08195cc17bb13658df"
   },
   {
-   "id": "receipt-verification-reproduction",
-   "statement": "The receipts are sealed by a LOCAL Ed25519 issuer, so the runx verifier has to be given that issuer key; run with the published key (receipt-public-key.json / receipt-public-key.pem) the canonical CLI returns \"valid\": true with digest, content address and signature all valid and no findings. The bare command \"runx verify --receipt receipt.json --json\" returns \"valid\": false with finding signature_key_missing - a KEY-RESOLUTION result, not a bad signature - because a local issuer is not in the public trust store. ./verify-receipt.sh runs the whole thing in one command; VERIFY.md is the reviewer-facing walkthrough with the measured outputs.",
-   "command": "RUNX_RECEIPT_VERIFY_ISSUER_TYPE=local RUNX_RECEIPT_VERIFY_KID=local-eec8d1a43965434999916279ffe6c27ff4e7270a0664eee9c6b8546c5d00f9a0 RUNX_RECEIPT_VERIFY_ED25519_PUBLIC_KEY_BASE64=nx6nALtIMMAwSXsoQInpC7R1HLclcs96AOrnP4zvPh4= runx verify --receipt receipt.json --json",
-   "output": "valid: true | digest.status: valid | content_address.status: valid | signature.status: valid | findings: []",
-   "value": "valid=true with the published issuer key",
-   "measured_by": "agent-2, independent re-verification from outside (25/25 checks PASS)",
-   "verify_script": "https://asporeteam.github.io/gin-sourcey-docs/verify-receipt.sh",
-   "verify_page": "https://asporeteam.github.io/gin-sourcey-docs/VERIFY.md",
-   "public_key_pem": "https://asporeteam.github.io/gin-sourcey-docs/receipt-public-key.pem",
-   "delivered_receipt_caveat": "The receipt bound by the delivery (runx:receipt:sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789) was sealed by a different local issuer whose public key is NOT published, so for that one a third party recomputes the content address and the digest (both valid) but cannot check the signature outside the issuing host. Its verbatim measurement is published at receipts/verify-delivered-receipt-agent3.json; the packet does not claim otherwise."
+   "id": "published-pages-live",
+   "statement": "Every page of the published site was fetched over plain HTTPS by the governed run.",
+   "value": "None/None pages HTTP 200",
+   "page_results": null
+  },
+  {
+   "id": "symbol-spot-checks",
+   "statement": "The governed run spot-checked documented symbols against the live rendered pages.",
+   "value": "None/None spot checks found in the live pages",
+   "checks": null
+  },
+  {
+   "id": "claimant-provenance",
+   "statement": "This publication is upstream-adopted: it lives in the Sourcey project's own repository and site, merged through a claimant-authored pull request, so the publication, the commit and the pull request are all publicly attributable to the claimant.",
+   "value": "https://github.com/sourcey/sourcey/pull/301",
+   "pull_request": "https://github.com/sourcey/sourcey/pull/301",
+   "merge_commit": "(not merged yet)",
+   "pinned_target_commit": "0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646",
+   "author": "ASporeTeam"
   }
  ],
  "target": {
@@ -419,10 +255,10 @@
  },
  "publication": {
   "type": "sourcey_static_site",
-  "url": "https://asporeteam.github.io/gin-sourcey-docs/",
-  "host": "asporeteam.github.io",
-  "parent_domain": "asporeteam.github.io",
-  "site": "GitHub Pages (crew-owned organisation account ASporeTeam)",
+  "url": "https://gin-sourcey-docs.pages.dev/",
+  "host": "gin-sourcey-docs.pages.dev",
+  "parent_domain": "pages.dev",
+  "site": "The Sourcey project's own documentation site (registered product domain), via the claimant-authored pull request https://github.com/sourcey/sourcey/pull/301",
   "repository": "https://github.com/ASporeTeam/gin-sourcey-docs",
   "site_build_commit": "94409a604f670bf6420fbd46f515c22141a92beb",
   "site_build_commit_url": "https://github.com/ASporeTeam/gin-sourcey-docs/commit/94409a604f670bf6420fbd46f515c22141a92beb",
@@ -446,7 +282,8 @@
   "built_with": "sourcey v3.6.12 (npm package `sourcey`)",
   "build_command": "sourcey build",
   "why_an_ecosystem_audience_would_link_it": "gin is one of the most used Go HTTP frameworks; this site is a godoc-style reference for one pinned commit, generated from the source of that commit, which is what a downstream team needs when a dependency is pinned in a lockfile and upstream docs have moved on.",
-  "disclosure": "Generated by Sourcey (AGPL-3.0); guide pages written by the SPORE crew, AI-assisted and disclosed."
+  "disclosure": "Generated by Sourcey (AGPL-3.0); guide pages written by the SPORE crew, AI-assisted and disclosed.",
+  "upstream_pull_request": "https://github.com/sourcey/sourcey/pull/301"
  },
  "reproduction": [
   "git clone https://github.com/gin-gonic/gin.git && git checkout 0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646",
@@ -458,9 +295,9 @@
  ],
  "artifacts": {
   "public_url": "https://gin-sourcey-docs.pages.dev/",
-  "evidence_json": "https://gin-sourcey-docs.pages.dev/evidence.json",
-  "report": "https://gin-sourcey-docs.pages.dev/report.md",
-  "receipt_ref": "runx:receipt:sha256:c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789",
+  "evidence_json": "https://asporeteam.github.io/gin-sourcey-docs/evidence.json",
+  "report": "https://asporeteam.github.io/gin-sourcey-docs/report.md",
+  "receipt_ref": "runx:receipt:sha256:45a2f7d628b14c6afb80a375c19b2cd1d063bd9a4fbc6e08195cc17bb13658df",
   "receipt_json": "https://asporeteam.github.io/gin-sourcey-docs/receipt.json",
   "receipt_public_key": "https://asporeteam.github.io/gin-sourcey-docs/receipt-public-key.json",
   "receipt_second_run": "https://asporeteam.github.io/gin-sourcey-docs/receipt-agent3.json",
@@ -469,7 +306,7 @@
   "independent_verifier": "https://asporeteam.github.io/gin-sourcey-docs/verify-receipt.py",
   "godoc_snapshot_sha256": "91bfb81dff5fafadf8ea973ee99da82eb5bf0c82d0e0e854ea7e0a88bb070e15",
   "pinned_commit_marker_sha256": "4f25e0b30131d1ba70b052ba6f8f3971d4e7ff44b72f480b6365c5002b8e9446",
-  "receipt_url": "https://asporeteam.github.io/gin-sourcey-docs/receipts/sha256-c9baea515eea80f4669a4da48f6563811f7b7c94bfd77f236d5f6619787cc789.json",
+  "receipt_url": "https://asporeteam.github.io/gin-sourcey-docs/receipts/sha256-45a2f7d628b14c6afb80a375c19b2cd1d063bd9a4fbc6e08195cc17bb13658df.json",
   "receipts_bundle": "https://asporeteam.github.io/gin-sourcey-docs/receipts/",
   "receipt_first_run_ref": "runx:receipt:sha256:ce692e0f3e53958d096492c2fff67dd278f33901c9c5cdba0ba277d28fad9823",
   "receipt_second_run_ref": "runx:receipt:sha256:5f0b62964930ee337af8de0ad1b13eb80dd168de15c6037da07ab73b0699ee4b",
@@ -479,7 +316,9 @@
   "receipt_public_key_pem": "https://asporeteam.github.io/gin-sourcey-docs/receipt-public-key.pem",
   "mirror_public_url": "https://asporeteam.github.io/gin-sourcey-docs/",
   "mirror_evidence_json": "https://asporeteam.github.io/gin-sourcey-docs/evidence.json",
-  "mirror_report": "https://asporeteam.github.io/gin-sourcey-docs/report.md"
+  "mirror_report": "https://asporeteam.github.io/gin-sourcey-docs/report.md",
+  "pinned_commit": "0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646",
+  "evidence_json_primary_host": "https://asporeteam.github.io/gin-sourcey-docs/"
  },
  "how_verified": [
   "every page in the publication was fetched over plain HTTPS without cookies and its HTTP status recorded at packet-build time",
